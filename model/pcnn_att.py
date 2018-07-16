@@ -1,7 +1,9 @@
-from framework import Framework
 import tensorflow as tf
 
+from framework import Framework
+
 FLAGS = tf.app.flags.FLAGS
+
 
 def pcnn_att(is_training):
     if is_training:
@@ -25,4 +27,3 @@ def pcnn_att(is_training):
         framework.init_test_model(tf.nn.softmax(logit))
         framework.load_test_data()
         framework.test()
-

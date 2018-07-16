@@ -1,5 +1,7 @@
-from framework import Framework
 import tensorflow as tf
+
+from framework import Framework
+
 
 def pcnn_att_adam(is_training):
     if is_training:
@@ -23,4 +25,3 @@ def pcnn_att_adam(is_training):
         framework.init_test_model(tf.nn.softmax(x))
         framework.load_test_data()
         framework.test()
-

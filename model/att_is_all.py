@@ -1,11 +1,13 @@
-from framework import Framework
 import tensorflow as tf
+
+from framework import Framework
 
 FLAGS = tf.app.flags.FLAGS
 
+
 def att_is_all(is_training):
     FLAGS.hidden_size = 320
-    
+
     if is_training:
         framework = Framework(is_training=True)
     else:
@@ -27,4 +29,3 @@ def att_is_all(is_training):
         framework.init_test_model(tf.nn.softmax(x))
         framework.load_test_data()
         framework.test()
-

@@ -1,7 +1,7 @@
 import tensorflow as tf
-import numpy as np
 
 FLAGS = tf.app.flags.FLAGS
+
 
 class Classifier(object):
 
@@ -14,7 +14,7 @@ class Classifier(object):
         with tf.name_scope("loss"):
             label_onehot = tf.one_hot(indices=self.label, depth=FLAGS.num_classes, dtype=tf.int32)
             loss = tf.losses.softmax_cross_entropy(onehot_labels=label_onehot, logits=x, weights=self.weights)
-            #loss = tf.losses.softmax_cross_entropy(onehot_labels=label_onehot, logits=x)
+            # loss = tf.losses.softmax_cross_entropy(onehot_labels=label_onehot, logits=x)
             tf.summary.scalar('loss', loss)
             return loss
 
@@ -24,7 +24,8 @@ class Classifier(object):
         with tf.name_scope("soft-label-loss"):
             label_onehot = tf.one_hot(indices=self.label, depth=FLAGS.num_classes, dtype=tf.int32)
             nscore = x + 0.9 * tf.reshape(tf.reduce_max(x, 1), [-1, 1]) * tf.cast(label_onehot, tf.float32)
-            nlabel = tf.one_hot(indices=tf.reshape(tf.argmax(nscore, axis=1), [-1]), depth=FLAGS.num_classes, dtype=tf.int32)
+            nlabel = tf.one_hot(indices=tf.reshape(tf.argmax(nscore, axis=1), [-1]), depth=FLAGS.num_classes,
+                                dtype=tf.int32)
             loss = tf.losses.softmax_cross_entropy(onehot_labels=nlabel, logits=nscore, weights=self.weights)
             tf.summary.scalar('loss', loss)
             return loss
